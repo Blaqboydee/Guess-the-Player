@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess The Player - Start</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1> Guess The Player ⚽</h1>
+        <p>Enter your details to start the game!</p>
+
+        <form id="gameForm">
+            <input type="text" id="username" placeholder="Enter your name" required>
+            <input type="number" id="questionCount" placeholder="Number of Questions (Min: 10)" min="10" required>
+            <button type="submit">Start Game</button>
+        </form>
+    </div>
+
+
+
+</body>
+</html>
+
+
+<script>
+      const players = [
+  { 
+    clue: [
+      "I have won the Ballon d'Or multiple times.",
+      "I have played for both Barcelona and PSG.",
+      "I won the World Cup in 2022.",
+      "I am Argentina’s all-time top scorer."
+    ],
+    options: ["Cristiano Ronaldo", "Lionel Messi", "Neymar Jr.", "Kylian Mbappé"],
+    correct: "Lionel Messi",
+    answered: false,
+    image: "Flashbacks _ MESSI 💙❤️.jpeg"
+  },
+  {
+    clue: [
+      "I am the all-time top scorer for Real Madrid.",
+      "I have won five Champions League titles.",
+      "I have played in the Premier League, La Liga, and Serie A.",
+      "I am Portugal’s all-time top scorer."
+    ],
+    options: ["Karim Benzema", "Cristiano Ronaldo", "Gareth Bale", "Zlatan Ibrahimović"],
+    correct: "Cristiano Ronaldo",
+    answered: false,
+    image: "Cristiano Ronaldo.jpeg"
+  },
+  {
+    clue: [
+      "I have won the Champions League with Liverpool.",
+      "I wear the number 11 shirt.",
+      "I am Egypt’s all-time top scorer.",
+      "I am known for my incredible left foot."
+    ],
+    options: ["Mohamed Salah", "Sadio Mané", "Kevin De Bruyne", "Eden Hazard"],
+    correct: "Mohamed Salah",
+    answered: false,
+    image: "Mohamed Salah.jpeg"
+  },
+  {
+    clue: [
+      "I captained my national team to World Cup victory in 2014.",
+      "I played for Bayern Munich for most of my career.",
+      "I am known for my intelligence and passing ability.",
+      "I retired from football in 2023."
+    ],
+    options: ["Bastian Schweinsteiger", "Toni Kroos", "Thomas Müller", "Philipp Lahm"],
+    correct: "Philipp Lahm",
+    answered: false,
+    image: "Fc Bayern München.jpeg"
+  },
+  {
+    clue: [
+      "I have played for Barcelona and Atlético Madrid.",
+      "I am known for my incredible dribbling and technical ability.",
+      "I have won La Liga and the Copa América.",
+      "I am one of Uruguay’s best forwards."
+    ],
+    options: ["Luis Suárez", "Edinson Cavani", "Diego Forlán", "Antoine Griezmann"],
+    correct: "Luis Suárez",
+    answered: false,
+    image: "Luis Suarez.jpeg" 
+  },
+  {
+    clue: [
+      "I was part of the France team that won the World Cup in 2018.",
+      "I have won league titles in both France and Spain.",
+      "I play as a winger and have incredible speed.",
+      "I have played for Barcelona and PSG."
+    ],
+    options: ["Kingsley Coman", "Ousmane Dembélé", "Kylian Mbappé", "Antoine Griezmann"],
+    correct: "Ousmane Dembélé",
+    answered: false,
+    image: "Osmane Dembele.jpeg"
+  },
+  {
+    clue: [
+      "I won the Champions League with Chelsea in 2021.",
+      "I am one of the best defensive midfielders in the world.",
+      "I won the World Cup with France in 2018.",
+      "I am known for my tireless work rate."
+    ],
+    options: ["Paul Pogba", "N'Golo Kanté", "Jorginho", "Eduardo Camavinga"],
+    correct: "N'Golo Kanté",
+    answered: false,
+    image: "ngolo kante.jpeg"
+  },
+  {
+    clue: [
+      "I have won multiple Premier League titles with Manchester City.",
+      "I am known for my incredible passing and vision.",
+      "I have won Player of the Season in England multiple times.",
+      "I am the captain of the Belgian national team."
+    ],
+    options: ["Eden Hazard", "Kevin De Bruyne", "Bruno Fernandes", "Bernardo Silva"],
+    correct: "Kevin De Bruyne",
+    answered: false,
+    image: "kdb.jpeg"
+  },
+  {
+    clue: [
+      "I am one of the best strikers in England’s history.",
+      "I am Tottenham Hotspur’s all-time top scorer.",
+      "I have played in the Bundesliga.",
+      "I am the captain of the England national team."
+    ],
+    options: ["Harry Kane", "Wayne Rooney", "Alan Shearer", "Jamie Vardy"],
+    correct: "Harry Kane",
+    answered: false,
+    image: "Harry Kane.jpeg"
+
+  },
+  {
+    clue: [
+      "I played my entire career at AS Roma.",
+      "I am considered one of the greatest Italian players ever.",
+      "I wore the number 10 shirt.",
+      "I was famous for my loyalty to one club."
+    ],
+    options: ["Andrea Pirlo", "Francesco Totti", "Paolo Maldini", "Alessandro Del Piero"],
+    correct: "Francesco Totti",
+    answered: false,
+    image: "Francesco Totti.jpeg"
+  },
+    {
+        clue: [
+            "I won the Champions League with Chelsea in 2012.",
+            "I am Ivory Coast's all-time top scorer.",
+            "I was known for my clutch goals in big matches.",
+            "I played for Marseille before joining Chelsea."
+        ],
+        options: ["Samuel Eto'o", "Didier Drogba", "Yaya Touré", "Sadio Mané"],
+        correct: "Didier Drogba",
+        answered: false,
+        image: "Didier Drogba Champions League.jpeg"
+    },
+    {
+        clue: [
+            "I am widely regarded as one of the best midfielders in football history.",
+            "I won the Champions League four times with Barcelona.",
+            "I played a key role in Spain’s 2010 World Cup win.",
+            "I am famous for my vision and passing ability."
+        ],
+        options: ["Andres Iniesta", "Xavi", "Luka Modric", "David Silva"],
+        correct: "Xavi",
+        answered: false,
+        image: "xavi.jpeg"
+    },
+    {
+        clue: [
+            "I won the Champions League with Barcelona in 2006.",
+            "I am famous for my incredible dribbling and flair.",
+            "I won the Ballon d'Or in 2005.",
+            "I played for AC Milan after leaving Barcelona."
+        ],
+        options: ["Neymar", "Ronaldinho", "Kaká", "Rivaldo"],
+        correct: "Ronaldinho",
+        answered: false,
+        image: "Ronaldinho Gaucho.jpeg"
+    },
+    {
+        clue: [
+            "I won the Ballon d'Or in 2007.",
+            "I played for AC Milan and Real Madrid.",
+            "I helped Brazil win the 2002 World Cup.",
+            "I was known for my elegance and attacking midfield play."
+        ],
+        options: ["Ronaldinho", "Rivaldo", "Kaká", "Zinedine Zidane"],
+        correct: "Kaká",
+        answered: false,
+        image: "Kaka and his Ballon d'Or 2007.jpeg"
+    },
+    {
+        clue: [
+            "I captained Germany to win the 2014 World Cup.",
+            "I was known for my tactical intelligence and versatility.",
+            "I played for Bayern Munich for most of my career.",
+            "I retired from international football after the 2014 World Cup win."
+        ],
+        options: ["Mats Hummels", "Bastian Schweinsteiger", "Philipp Lahm", "Toni Kroos"],
+        correct: "Philipp Lahm",
+        answered: false,
+        image: "Fc Bayern München.jpeg"
+    },
+    {
+        clue: [
+            "I played for Arsenal and Real Madrid.",
+            "I am known for my exceptional playmaking skills.",
+            "I won the World Cup with Germany in 2014.",
+            "I am famous for my left foot and vision."
+        ],
+        options: ["Toni Kroos", "Mesut Özil", "Marco Reus", "Ilkay Gündogan"],
+        correct: "Mesut Özil",
+        answered: false,
+        image: "Mesut Ozil.jpeg"
+    },
+    {
+        clue: [
+            "I am considered one of the best defenders of all time.",
+            "I won multiple Champions League titles with AC Milan.",
+            "I spent my entire career at AC Milan.",
+            "My father was also a legendary footballer."
+        ],
+        options: ["Paolo Maldini", "Franco Baresi", "Alessandro Nesta", "Cafu"],
+        correct: "Paolo Maldini",
+        answered: false,
+        image: "Maldini.jpeg"
+    },
+    {
+        clue: [
+            "I won the Champions League with Inter Milan in 2010.",
+            "I played under Jose Mourinho at Inter Milan and Chelsea.",
+            "I was known for my versatility in midfield.",
+            "I am from Ghana."
+        ],
+        options: ["Michael Essien", "Sulley Muntari", "Clarence Seedorf", "Yaya Touré"],
+        correct: "Sulley Muntari",
+        answered: false,
+        image: "Sulley Muntari v Arsenal_ March 5, 2011_.jpeg"
+    },
+    {
+        clue: [
+            "I won the Champions League with Liverpool in 2005.",
+            "I am regarded as one of the best midfielders of my generation.",
+            "I captained Liverpool for many years.",
+            "I scored a famous long-range goal against West Ham in the FA Cup final."
+        ],
+        options: ["Xabi Alonso", "Frank Lampard", "Steven Gerrard", "Michael Owen"],
+        correct: "Steven Gerrard",
+        answered: false,
+        image: "Steven Gerrard _ Liverpool champions, Liverpool football team, Liverpool.jpeg"
+    },
+    {
+        clue: [
+            "I won the Ballon d'Or in 1998.",
+            "I scored twice in the 1998 World Cup final.",
+            "I am known for my incredible technique and skill.",
+            "I won the Champions League with Real Madrid."
+        ],
+        options: ["Zinedine Zidane", "Thierry Henry", "Rivaldo", "Ronaldinho"],
+        correct: "Zinedine Zidane",
+        answered: false,
+        image: "zidane.jpeg"
+    },
+    {
+        clue: [
+            "I won the Champions League with Manchester United in 2008.",
+            "I was known for my incredible leadership and tackling ability.",
+            "I am regarded as one of the greatest defenders in Premier League history.",
+            "I was Manchester United's captain for many years."
+        ],
+        options: ["Nemanja Vidic", "Rio Ferdinand", "John Terry", "Jaap Stam"],
+        correct: "Nemanja Vidic",
+        answered: false,
+        image: "vidic.jpeg"
+    },
+    {
+        clue: [
+            "I won multiple Champions League titles with Real Madrid.",
+            "I am regarded as one of the best left-backs in football history.",
+            "I played for Real Madrid for over a decade.",
+            "I am from Brazil."
+        ],
+        options: ["Roberto Carlos", "Marcelo", "Dani Alves", "Cafu"],
+        correct: "Marcelo",
+        answered: false,
+        image: "marcelo.jpeg"
+    },
+    {
+        clue: [
+            "I played for both Manchester United and Real Madrid.",
+            "I was known for my free-kick ability and passing range.",
+            "I captained England in multiple tournaments.",
+            "I am one of the most marketable footballers of all time."
+        ],
+        options: ["Wayne Rooney", "Frank Lampard", "David Beckham", "Michael Owen"],
+        correct: "David Beckham",
+        answered: false,
+        image: "David Beckham.jpeg"
+    },
+    {
+        clue: [
+            "I won the Champions League with Chelsea.",
+            "I am known for my incredible work rate and goal-scoring ability from midfield.",
+            "I played for both West Ham and Manchester City early in my career.",
+            "I am Chelsea's all-time top scorer."
+        ],
+        options: ["Frank Lampard", "Steven Gerrard", "Michael Ballack", "Cesc Fabregas"],
+        correct: "Frank Lampard",
+        answered: false,
+        image: "Lampard.jpeg"
+    },
+    {
+        clue: [
+            "I won the Champions League with Bayern Munich in 2013.",
+            "I was known for my explosive pace and goal-scoring ability.",
+            "I am from the Netherlands.",
+            "I scored the winning goal in the 2013 Champions League final."
+        ],
+        options: ["Robin van Persie", "Arjen Robben", "Wesley Sneijder", "Ruud van Nistelrooy"],
+        correct: "Arjen Robben",
+        answered: false,
+        image: "ARJEN ROBBEN 🇳🇱🤩.jpeg"
+    },
+    {
+        clue: [
+            "I won the Ballon d'Or three times.",
+            "I played for AC Milan and Barcelona.",
+            "I was a key player in Brazil’s 1994 World Cup-winning team.",
+            "I was known for my powerful left foot and free-kicks."
+        ],
+        options: ["Romário", "Rivaldo", "Ronaldinho", "Marco van Basten"],
+        correct: "Rivaldo",
+        answered: false,
+        image: "Rivaldo.jpeg"
+    },
+    {
+        clue: [
+            "I won multiple Premier League titles with Arsenal.",
+            "I was part of the 'Invincibles' team.",
+            "I became Arsenal’s all-time top scorer.",
+            "I later played for Barcelona."
+        ],
+        options: ["Robin van Persie", "Thierry Henry", "Dennis Bergkamp", "Patrick Vieira"],
+        correct: "Thierry Henry",
+        answered: false,
+        image: "thierry henry.jpeg"
+    },
+    {
+        clue: [
+            "I won the Champions League with Real Madrid.",
+            "I am Croatia’s most-capped player.",
+            "I won the Ballon d’Or in 2018.",
+            "I played for Tottenham before joining Real Madrid."
+        ],
+        options: ["Luka Modric", "Ivan Rakitic", "Toni Kroos", "Zlatko Dalić"],
+        correct: "Luka Modric",
+        answered: false,
+        image: "Luka Modric.jpeg"
+    },
+    {
+        clue: [
+            "I won the Champions League with Liverpool in 2019.",
+            "I am considered one of the best defenders in the world.",
+            "I am known for my leadership and aerial ability.",
+            "I am the captain of the Netherlands national team."
+        ],
+        options: ["Virgil van Dijk", "Matthijs de Ligt", "Stefan de Vrij", "Nathan Aké"],
+        correct: "Virgil van Dijk",
+        answered: false,
+        image: "Virgil dijk.jpeg"
+    },
+    {
+        clue: [
+            "I was part of the French squad that won the 2018 World Cup.",
+            "I played for Atlético Madrid before moving to Barcelona.",
+            "I am known for my dribbling and finishing ability.",
+            "I have a signature goal celebration where I dance."
+        ],
+        options: ["Ousmane Dembélé", "Antoine Griezmann", "Kingsley Coman", "Kylian Mbappé"],
+        correct: "Antoine Griezmann",
+        answered: false,
+        image: "Antoine Griezmann.jpeg"
+    },
+    {
+        clue: [
+            "I won multiple La Liga titles with Barcelona.",
+            "I am regarded as one of the best defensive midfielders in history.",
+            "I won the World Cup with Spain in 2010.",
+            "I was known for my intelligence and tactical awareness."
+        ],
+        options: ["Xavi", "Sergio Busquets", "Andres Iniesta", "Cesc Fabregas"],
+        correct: "Sergio Busquets",
+        answered: false,
+        image: "Sergio Busquets.jpeg"
+    },
+    {
+        clue: [
+            "I won multiple Premier League titles with Manchester City.",
+            "I am regarded as one of the best midfielders of my generation.",
+            "I have an exceptional passing range and vision.",
+            "I am from Belgium."
+        ],
+        options: ["Eden Hazard", "Kevin De Bruyne", "Youri Tielemans", "Axel Witsel"],
+        correct: "Kevin De Bruyne",
+        answered: false,
+        image:"kdb.jpeg"
+    },
+    {
+        clue: [
+            "I won the Premier League Golden Boot multiple times.",
+            "I played for both Manchester United and Arsenal.",
+            "I am known for my left-footed volleys.",
+            "I am from the Netherlands."
+        ],
+        options: ["Ruud van Nistelrooy", "Robin van Persie", "Dennis Bergkamp", "Arjen Robben"],
+        correct: "Robin van Persie",
+        answered: false,
+        image: "Van Persie.jpeg"
+    },
+    {
+        clue: [
+            "I won multiple Bundesliga titles with Bayern Munich.",
+            "I am considered one of the best goalkeepers in history.",
+            "I revolutionized the role of the 'sweeper-keeper'.",
+            "I captained Germany to win the 2014 World Cup."
+        ],
+        options: ["Marc-André ter Stegen", "Oliver Kahn", "Manuel Neuer", "Jens Lehmann"],
+        correct: "Manuel Neuer",
+        answered: false,
+        image: "Manuel Neuer.jpeg"
+    },
+    {
+        clue: [
+            "I won the World Cup with Italy in 2006.",
+            "I was known for my defensive skills and leadership.",
+            "I played for both Juventus and Real Madrid.",
+            "I won the Ballon d’Or as a defender."
+        ],
+        options: ["Fabio Cannavaro", "Paolo Maldini", "Alessandro Nesta", "Giorgio Chiellini"],
+        correct: "Fabio Cannavaro",
+        answered: false,
+        image: "Cannavaro.jpeg"
+    },
+    {
+        clue: [
+            "I won multiple Serie A titles with Juventus.",
+            "I am regarded as one of the best goalkeepers of all time.",
+            "I played for PSG and Parma during my career.",
+            "I won the World Cup with Italy in 2006."
+        ],
+        options: ["Gianluigi Donnarumma", "Gianluigi Buffon", "Walter Zenga", "Samir Handanovic"],
+        correct: "Gianluigi Buffon",
+        answered: false,
+        image: "Buffon.jpeg"
+    },
+    {
+        clue: [
+            "I won multiple Champions League titles with Real Madrid.",
+            "I was known for my incredible heading ability.",
+            "I played for Juventus before joining Real Madrid.",
+            "I captained Spain to win the 2010 World Cup."
+        ],
+        options: ["Gerard Piqué", "Carles Puyol", "Sergio Ramos", "Fernando Hierro"],
+        correct: "Sergio Ramos",
+        answered: false,
+        image: "Sergio Ramos.jpeg"
+    },
+    {
+        clue: [
+            "I won the Champions League with Barcelona and Bayern Munich.",
+            "I am regarded as one of the best right-backs in football history.",
+            "I won multiple league titles in Spain and France.",
+            "I am from Brazil."
+        ],
+        options: ["Cafu", "Dani Alves", "Roberto Carlos", "Maicon"],
+        correct: "Dani Alves",
+        answered: false,
+        image: "Dani Alves.jpeg"
+    },
+    {
+        clue: [
+            "I won the Champions League with Chelsea.",
+            "I am Belgium’s all-time top scorer.",
+            "I played for Lille before moving to the Premier League.",
+            "I was known for my dribbling and creativity."
+        ],
+        options: ["Romelu Lukaku", "Eden Hazard", "Dries Mertens", "Kevin De Bruyne"],
+        correct: "Eden Hazard",
+        answered: false,
+        image: "Eden Hazard.jpeg"
+    },
+    {
+        clue: [
+            "I won multiple Champions League titles with Real Madrid.",
+            "I am one of the best defensive midfielders of my generation.",
+            "I played for Porto before joining Real Madrid.",
+            "I am from Brazil."
+        ],
+        options: ["Casemiro", "Fernandinho", "Fabinho", "Bruno Guimarães"],
+        correct: "Casemiro",
+        answered: false,
+        image: "Casemiro.jpeg"
+    },
+    {
+        clue: [
+            "I won the Ballon d’Or in 2001.",
+            "I played for Juventus and Real Madrid.",
+            "I was known for my technical skill and playmaking ability.",
+            "I am from Portugal."
+        ],
+        options: ["Cristiano Ronaldo", "Deco", "Luis Figo", "Rui Costa"],
+        correct: "Luis Figo",
+        answered: false,
+        image: "Luis Figo.jpeg"
+    },
+    {
+        clue: [
+            "I won multiple Premier League titles with Manchester United.",
+            "I was known for my aggression and leadership.",
+            "I captained Manchester United for many years.",
+            "I am from Ireland."
+        ],
+        options: ["Paul Scholes", "Roy Keane", "Gary Neville", "Bryan Robson"],
+        correct: "Roy Keane",
+        answered: false,
+        image: "Roy Keane Wallpaper.jpeg"
+    },
+    {
+        clue: [
+            "I won the Champions League with Borussia Dortmund.",
+            "I was known for my long-range shooting ability.",
+            "I played for Real Madrid and Arsenal.",
+            "I won the World Cup with Germany in 2014."
+        ],
+        options: ["Mario Götze", "Toni Kroos", "Mesut Özil", "Lars Bender"],
+        correct: "Toni Kroos",
+        answered: false,
+        image: "Toni Kroos.jpeg"
+    },
+    {
+        clue: [
+            "I won the Ballon d’Or twice.",
+            "I played for both Barcelona and Inter Milan.",
+            "I was known for my incredible pace and finishing ability.",
+            "I won the World Cup with Brazil in 2002."
+        ],
+        options: ["Rivaldo", "Ronaldo Nazário", "Romário", "Adriano"],
+        correct: "Ronaldo Nazário",
+        answered: false,
+        image: "Ronaldo R9.jpeg"
+    },
+    {
+        clue: [
+            "I won the Champions League with AC Milan.",
+            "I played for Arsenal before joining Milan.",
+            "I am considered one of the best midfielders of my generation.",
+            "I am from the Netherlands."
+        ],
+        options: ["Clarence Seedorf", "Edgar Davids", "Patrick Vieira", "Ruud Gullit"],
+        correct: "Clarence Seedorf",
+        answered: false,
+        image: "Clarence Seedorf Ac Milan.jpeg"
+    }
+];
+
+console.log(players);
+
+let footballers = players.map(player => player.correct);
+console.log(footballers);
+let selectedQuestions = [];
+let randomQuestionArr = [];
+
+document.getElementById('gameForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            selectedQuestions = [];
+            randomQuestionArr = [];
+
+            const username = document.getElementById('username').value.trim();
+            const questionCount = parseInt(document.getElementById('questionCount').value);
+
+            if (username === "" || questionCount < 10) {
+                alert("Please enter a valid name and at least 10 questions.");
+                return;
+            }
+
+            
+            if (isNaN(questionCount) || questionCount < 10 || questionCount > players.length) {
+                alert("Please enter a valid number between 10 and " + players.length);
+                return;
+            } else {
+                while (randomQuestionArr.length < questionCount) {
+                    let randomQuestionIndex = Math.floor(Math.random() * players.length);
+
+                    if (randomQuestionArr.includes(randomQuestionIndex)) {
+                        continue;
+                    }
+                    randomQuestionArr.push(randomQuestionIndex);
+                    selectedQuestions.push(players[randomQuestionIndex]);
+                }
+                console.log(randomQuestionArr);
+                console.log(selectedQuestions);  
+            }
+
+            localStorage.setItem('username', username);
+            localStorage.setItem('questionCount', questionCount);
+            localStorage.setItem('selectedQuestions', JSON.stringify(selectedQuestions));
+            window.location.href = "guess.html";
+
+        });
+
+
+
+
+function startGame() {
+
+}
+
+
+</script>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Player</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&display=swap');
+
+body {
+    background-image: url('https://images.unsplash.com/photo-1508100134119-f93388e60d95?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDd8fHxlbnwwfHx8fHw%3D');
+    font-family: 'Oswald', sans-serif;
+    /* text-align: center; */
+    color: white;
+    margin: 0;
+    padding-left: 7% ;
+    background-blend-mode: darken;
+    background-color: rgba(0, 0, 0, 0.734);
+}
+
+.timer {
+    font-size: 24px;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+h1 {
+    font-size: 32px;
+    margin-top: 10px;
+    /* color: black; */
+}
+
+#questionAmount {
+    font-size: 18px;
+    margin-bottom: 20px;
+    /* color: black; */
+
+}
+
+.displayQuestion {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    /* margin-left: 7%; */
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+h3 {
+    font-size: 26px;
+    margin-bottom: 15px;
+}
+
+.clues {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.clues h4 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.clues p {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.options h4 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.optionbtn {
+    background: #28a745;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    width: 45%;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.optionbtn:hover {
+    background: #218838;
+}
+
+#next {
+    background: #ffc107;
+    color: black;
+    font-size: 18px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#next:hover {
+    background: #e0a800;
+}
+
+#result {
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#image {
+    margin-top: 20px;
+    position: absolute;
+    right: 10%;
+    top: 15%;
+    border: 3px solid rgba(255, 255, 255, 0.529);
+    border-radius: 10px;
+    /* height: 77vh; */
+    width: 20%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 50px;
+    justify-content: center;
+}
+
+.playerImage{
+    border-radius: 10px;
+    /* height: 100%; */
+    width: 100%;
+}
+
+/* RESPONSIVENESS */
+@media screen and (max-width: 768px) {
+
+    body{
+        margin: 0;
+        padding: 0;
+        display: flex;
+        /* justify-content: center; */
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+         background-color: rgba(0, 0, 0, 0.898);
+
+    }
+
+    .displayQuestion {
+        width: 80%;
+        padding: 10px !important;
+        height: 80vh;
+        background: none;
+        text-align: center;
+        /* background-color: red; */
+    }
+
+    h1 {
+        font-size: 22px;
+        margin: 0;
+    }
+
+    .clues{
+        /* background-color: #e0a800; */
+        padding-top: 0px;
+    }
+
+    .clues p, .options h4 {
+        font-size: 14px;
+    }
+
+    .optionbtn {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    #next {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    #image {
+    margin-top: 20px;
+    position: absolute;
+    right: 5%;
+    top: 15%;
+  border: 0;
+    height: 82vh;
+    width: 90%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 50px;
+    justify-content: center;
+    z-index: -1000;
+}
+
+#image span{
+    display: none;
+}
+
+.playerImage{
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    filter: brightness(90%); /* Adjust percentage as needed */
+
+}
+
+@media screen and (max-width: 350px) {
+    body{
+        margin: 0;
+        padding: 0;
+        display: flex;
+        /* justify-content: center; */
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+         background-color: rgba(0, 0, 0, 0.898);
+
+    }
+
+    .displayQuestion {
+        width: 80%;
+        padding: 0px !important;
+        height: 60vh;
+        background: none;
+        text-align: center;
+        /* background-color: red; */
+    }
+
+    h1 {
+        font-size: 15px;
+        margin: 0 !important;
+    }
+
+    #topic{
+        font-size: 18px;
+        margin: 0;
+        text-align: center;
+    }
+
+    .clues{
+        /* background-color: #e0a800; */
+        padding-top: 0px;
+    }
+
+    .clues p, .options h4 {
+        font-size: 14px;
+    }
+
+ 
+
+    .optionbtn {
+        font-size: 10px;
+        padding: 8px;
+    }
+
+    #next {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    #image {
+    margin-top: 20px;
+    position: absolute;
+    right: 5%;
+    top: 15%;
+  border: 0;
+    height: 82vh;
+    width: 90%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 50px;
+    justify-content: center;
+    z-index: -1000;
+}
+
+#image span{
+    display: none;
+}
+
+.playerImage{
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    filter: brightness(90%); /* Adjust percentage as needed */
+
+}
+
+}
+
+
+
+}
+    </style>
+</head>
+<body>
+<div id="image"><span>?</span><span>Player</span></div>
+    <div class="timer"></div>
+    <h1 id="welcome"></h1>
+    <div id="questionAmount"></div>
+    <div class="displayQuestion">
+        <h3 id="topic">Guess the Player</h3>
+
+        <div class="clues">  
+            <h4 id="cluesHeader">Clues</h4>
+             <p id="clue"></p>
+            <p id="clue2"></p>
+            <p id="clue3"></p>
+            <p id="clue4"></p>
+        </div>
+
+        <div class="options">
+            <h4>Options</h4>
+            <button class="optionbtn" onclick="checkAns()" id="option1"></button>
+            <button class="optionbtn" onclick="checkAns()" id="option2"></button>
+            <button class="optionbtn" onclick="checkAns()" id="option3"></button>
+            <button class="optionbtn" onclick="checkAns()" id="option4"></button>
+    </div>
+    <button id="next">Next</button>
+    <div id="result"></div>
+    </div>
+    
+</body>
+</html>
+<script>
+
+
+window.onload = function() {
+    if (sessionStorage.getItem("gameStarted") === "true") {
+        let confirmExit = confirm("Are you sure you want to leave the game?");
+
+        if (confirmExit) {
+            localStorage.clear(); // Clear progress
+            sessionStorage.removeItem("gameStarted"); // Reset session storage
+            window.location.href = "index.html"; 
+        }
+    } else {
+        sessionStorage.setItem("gameStarted", "true");
+    }
+};
+
+let selectedQuestions = JSON.parse(localStorage.getItem("selectedQuestions")) || [];
+let userName = localStorage.getItem("username");
+let amountOfQuestions = localStorage.getItem("questionCount");
+let amountDisplay = amountOfQuestions - 1;
+let welcome = document.getElementById("welcome");
+let questionAmount = document.getElementById("questionAmount");
+let image = document.getElementById("image");
+
+
+welcome.innerHTML = `Welcome ${userName}! Got ball knowledge?`;
+questionAmount.innerHTML = `You have ${amountDisplay} more questions to answer`;
+console.log(selectedQuestions);
+
+
+
+
+let currentQuestion = 0;
+let score = 0;
+let countdown
+let correctAnswer = selectedQuestions[currentQuestion].correct;
+let options = document.querySelector(".options");
+
+
+let timer = document.querySelector(".timer");
+
+
+startTimer();
+
+function startTimer() {
+    // Directly reference the object property
+    console.log(selectedQuestions[currentQuestion].answered);
+
+    clearInterval(countdown);
+    timer.textContent = 10;
+
+    countdown = setInterval(() => {
+        timer.textContent--;
+
+        if (timer.textContent == 0) {
+            // Directly update the answered state in the object
+            selectedQuestions[currentQuestion].answered = true;
+            console.log(selectedQuestions[currentQuestion].answered);
+
+            clearInterval(countdown);
+            // Move to the next question if needed
+            nextQuestion();
+        }
+    }, 1000);
+}
+
+
+
+
+clue.innerHTML = selectedQuestions[currentQuestion].clue[0];
+clue2.innerHTML = selectedQuestions[currentQuestion].clue[1];
+clue3.innerHTML = selectedQuestions[currentQuestion].clue[2];
+clue4.innerHTML = selectedQuestions[currentQuestion].clue[3];
+
+option1.innerHTML = selectedQuestions[currentQuestion].options[0];
+option2.innerHTML = selectedQuestions[currentQuestion].options[1];
+option3.innerHTML = selectedQuestions[currentQuestion].options[2];
+option4.innerHTML = selectedQuestions[currentQuestion].options[3];
+
+
+
+
+
+function checkAns() {
+    // Directly update the answered state
+    selectedQuestions[currentQuestion].answered = true;
+
+    console.log(selectedQuestions[currentQuestion]);
+
+    let imgSrc = selectedQuestions[currentQuestion].image;
+    console.log(imgSrc);
+
+    let userAnswer = event.target.innerHTML;
+    console.log(userAnswer);
+
+    if (userAnswer === correctAnswer) {
+        score++;
+        result.innerHTML = "Correct!";
+    } else {
+        result.innerHTML = "Incorrect!";
+    }
+
+    options.style.display = "none";
+    console.log(imgSrc);
+    
+    image.innerHTML = `<img src="${imgSrc}" alt="player" class="playerImage">`;
+}
+
+
+
+
+let nextBtn = document.getElementById("next");
+
+nextBtn.addEventListener("click", function() {
+nextQuestion();
+});
+
+
+
+
+function nextQuestion() {
+    image.innerHTML = `<span>?</span><span>Player</span>`;
+
+    if (selectedQuestions.every(player => player.answered)) {
+        let clues = document.querySelector(".clues");
+
+    clues.style.textAlign = "center";
+
+    let percentage = (score / selectedQuestions.length) * 100;
+
+    if (percentage >= 90) {
+        cluesHeader.innerHTML = `Your score is ${score} out of ${selectedQuestions.length}, Football Guru! 🏆`;
+    } else if (percentage >= 75) {
+        cluesHeader.innerHTML = `Your score is ${score} out of ${selectedQuestions.length}, Elite fan ⚽!`;
+    } else if (percentage >= 50) {
+        cluesHeader.innerHTML = `Your score is ${score} out of ${selectedQuestions.length}, Casual Viewer 🎯`;
+        } else if (percentage >= 25) {
+        cluesHeader.innerHTML = `Your score is ${score} out of ${selectedQuestions.length},Weekend Watcher 📺`;
+    } else {
+        cluesHeader.innerHTML = `Your score is ${score} out of ${selectedQuestions.length},Plastic Fan 🤡`;
+    }
+
+   topic.innerHTML = "Game Over!";
+    welcome.innerHTML =  ``;
+    clue.innerHTML = "";
+    clue2.innerHTML = "";
+    clue3.innerHTML = "";
+    clue4.innerHTML = "";
+    option1.innerHTML = "";                             
+    option2.innerHTML = "";
+    option3.innerHTML = "";
+    option4.innerHTML = "";
+    result.innerHTML = "";
+    options.style.display = "none";
+    nextBtn.style.display = "none";
+    image.style.display = "none";
+    document.body.style.display = 'flex';
+    document.body.style.justifyContent = 'center';
+    document.body.style.alignItems = 'center';
+    document.body.style.flexDirection = 'column';
+    return;
+    }
+
+    currentQuestion++; 
+    // let imgSrc = selectedQuestions[currentQuestion].image;
+
+    console.log(currentQuestion);
+
+    // console.log(selectedQuestions[currentQuestion]);
+
+
+ options.style.display = "block";
+
+if (currentQuestion < selectedQuestions.length && amountDisplay > 0) {
+    startTimer();
+    amountDisplay--;
+    questionAmount.innerHTML = `You have ${amountDisplay} more questions to answer`;
+    clue.innerHTML = selectedQuestions[currentQuestion].clue[0];
+    clue2.innerHTML = selectedQuestions[currentQuestion].clue[1];
+    clue3.innerHTML = selectedQuestions[currentQuestion].clue[2];
+    clue4.innerHTML = selectedQuestions[currentQuestion].clue[3];
+
+    option1.innerHTML = selectedQuestions[currentQuestion].options[0];
+    option2.innerHTML = selectedQuestions[currentQuestion].options[1];
+    option3.innerHTML = selectedQuestions[currentQuestion].options[2];
+    option4.innerHTML = selectedQuestions[currentQuestion].options[3];
+
+    correctAnswer = selectedQuestions[currentQuestion].correct;
+    result.innerHTML = "";
+  } else {
+    alert("Game Over!");
+    clearInterval(countdown);
+    let percentage = (score / selectedQuestions.length) * 100;
+
+if (percentage >= 90) {
+    cluesHeader.innerHTML = `Your score is ${score} out of ${selectedQuestions.length}, Football Guru! 🏆`;
+} else if (percentage >= 75) {
+    cluesHeader.innerHTML = `Your score is ${score} out of ${selectedQuestions.length}, Elite fan ⚽!`;
+} else if (percentage >= 50) {
+    cluesHeader.innerHTML = `Your score is ${score} out of ${selectedQuestions.length}, Casual Viewer 🎯`;
+    } else if (percentage >= 25) {
+    cluesHeader.innerHTML = `Your score is ${score} out of ${selectedQuestions.length},Weekend Watcher 📺`;
+} else {
+    cluesHeader.innerHTML = `Your score is ${score} out of ${selectedQuestions.length},Plastic Fan 🤡`;
+}
+
+topic.innerHTML = "Game Over!";
+welcome.innerHTML =  ``;
+clue.innerHTML = "";
+clue2.innerHTML = "";
+clue3.innerHTML = "";
+clue4.innerHTML = "";
+option1.innerHTML = "";                             
+option2.innerHTML = "";
+option3.innerHTML = "";
+option4.innerHTML = "";
+result.innerHTML = "";
+options.style.display = "none";
+nextBtn.style.display = "none";
+    options.style.display = "none";
+    nextBtn.style.display = "none";
+    image.style.display = "none";
+    document.body.style.display = 'flex';
+    document.body.style.justifyContent = 'center';
+    document.body.style.alignItems = 'center';
+    document.body.style.flexDirection = 'column';
+    // document.body.style.textAlign = 'center';
+    return;
+
+  }
+}
+
+
+
+</script>
