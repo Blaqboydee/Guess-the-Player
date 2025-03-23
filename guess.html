@@ -5,17 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guess the Player</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&display=swap');
+       @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 
 body {
     background-image: url('https://images.unsplash.com/photo-1508100134119-f93388e60d95?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDd8fHxlbnwwfHx8fHw%3D');
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Poppins', sans-serif;
     /* text-align: center; */
     color: white;
     margin: 0;
     padding-left: 7% ;
     background-blend-mode: darken;
-    background-color: rgba(0, 0, 0, 0.734);
+    background-color: rgba(0, 0, 0, 0.963);
+    text-align: center;
 }
 
 .timer {
@@ -31,6 +33,13 @@ body {
 h1 {
     font-size: 32px;
     margin-top: 10px;
+    /* color: black; */
+}
+
+
+#welcome {
+    font-size: 20px;
+    margin-bottom: 20px;
     /* color: black; */
 }
 
@@ -154,7 +163,7 @@ h3 {
     }
 
     .displayQuestion {
-        width: 80%;
+        width: 100%;
         padding: 10px !important;
         height: 80vh;
         background: none;
@@ -168,21 +177,24 @@ h3 {
     }
 
     .clues{
-        /* background-color: #e0a800; */
+        background-color: #0c0c0c16;
         padding-top: 0px;
+        height: 30vh;
+        text-align: left;
+        line-height: 30px;
     }
 
     .clues p, .options h4 {
-        font-size: 14px;
+        font-size: 18px;
     }
 
     .optionbtn {
-        font-size: 12px;
+        font-size: 19px;
         padding: 8px;
     }
 
     #next {
-        font-size: 14px;
+        font-size: 19px;
         padding: 10px;
     }
 
@@ -210,7 +222,7 @@ h3 {
     border-radius: 10px;
     width: 100%;
     height: 100%;
-    filter: brightness(90%); /* Adjust percentage as needed */
+    filter: brightness(40%); /* Adjust percentage as needed */
 
 }
 
@@ -312,7 +324,7 @@ h3 {
         <h3 id="topic">Guess the Player</h3>
 
         <div class="clues">  
-            <h4 id="cluesHeader">Clues</h4>
+            <h4 id="cluesHeader"></h4>
              <p id="clue"></p>
             <p id="clue2"></p>
             <p id="clue3"></p>
